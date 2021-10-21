@@ -1,6 +1,6 @@
 name: Branch Names
-description: Retrieve giithub branch or tag information without the /ref/* prefix
-author: tj-actions
+description: Retrieve github branch or tag information without the /ref/* prefix
+author: n-nikitins
 inputs:
   strip_tag_prefix:
     description: 'The tag prefix to strip i.e v0.0.1 -> (strip v) -> 0.0.1'
@@ -34,56 +34,17 @@ runs:
   using: "composite"
   steps:
     - id: branch
-      run: |
-        if [[ "${{ github.ref }}" != "refs/tags/"* ]]; then
-          BASE_REF=$(printf "%q" "${{ github.base_ref }}")
-          HEAD_REF=$(printf "%q" "${{ github.head_ref }}")
-          REF=$(printf "%q" "${{ github.ref }}")
-          BASE_REF=${BASE_REF/refs\/heads\//}
-          HEAD_REF=${HEAD_REF/refs\/heads\//}
-          echo "::set-output name=base_ref_branch::$(eval printf "%s" "$BASE_REF")"
-          echo "::set-output name=head_ref_branch::$(eval printf "%s" "$HEAD_REF")"
-          REF_BRANCH=${REF/refs\/pull\//}
-          REF_BRANCH=${REF_BRANCH/refs\/heads\//}
-          echo "::set-output name=ref_branch::$(eval printf "%s" "$REF_BRANCH")"
-        fi
-      shell: bash
+      run: .\github\workflows\composite-actions-windows\branch.ps1 -github_ref ${{ github.ref}} -github_base_ref ${{ github.base_ref}} -github_head_ref ${{ github.head_ref }}
+      shell: powershell
+      
     - id: current_branch
-      run: |
-        if [[ "${{ github.ref }}" != "refs/tags/"* ]]; then
-          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
-            echo "::set-output name=current_branch::${{ steps.branch.outputs.head_ref_branch }}"
-          else
-            echo "::set-output name=current_branch::${{ steps.branch.outputs.ref_branch }}"
-          fi
-        else
-          REF=$(printf "%q" "${{ github.ref }}")
-          REF_BRANCH=${REF/refs\/tags\/${{ inputs.strip_tag_prefix }}/}
-          echo "::set-output name=current_branch::$(eval printf "%s" "$REF_BRANCH")"
-        fi
-      shell: bash
+      run: .\github\workflows\composite-actions-windows\current_branch.ps1 -github_ref ${{ github.ref}} -github_event_name ${{ github.event_name }} -head_ref_branch ${{ steps.branch.outputs.head_ref_branch }} -ref_branch ${{ steps.branch.outputs.ref_branch }} -strip_tag_prefix ${{ inputs.strip_tag_prefix }}
+      shell: powershell
+      
     - id: default
-      run: |
-        if [[ "${{ github.ref }}" != "refs/tags/"* ]]; then
-          if [[ "${{ steps.current_branch.outputs.current_branch }}" == "${{ steps.branch.outputs.ref_branch }}" ]]; then
-            echo "::set-output name=is_default::true"
-          else
-            echo "::set-output name=is_default::false"
-          fi
-        fi
-      shell: bash
+      run: .\github\workflows\composite-actions-windows\default.ps1 -github_ref ${{ github.ref}} -current_branch ${{ steps.current_branch.outputs.current_branch }} -ref_branch ${{ steps.branch.outputs.ref_branch }}
+      shell: powershell
+      
     - id: tag
-      run: |
-        if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
-          REF=$(printf "%q" "${{ github.ref }}")
-          TAG=${REF/refs\/tags\/${{ inputs.strip_tag_prefix }}/}
-          echo "::set-output name=tag::$(eval printf "%s" "$TAG")"
-          echo "::set-output name=is_tag::true"
-        else
-          echo "::set-output name=is_tag::false"
-        fi
-      shell: bash
-
-branding:
-  icon: git-branch
-  color: white
+      run: .\github\workflows\composite-actions-windows\tag.ps1 -github_ref ${{ github.ref}} -strip_tag_prefix ${{ inputs.strip_tag_prefix }}
+      shell: powershell
