@@ -6,8 +6,13 @@ param($github_ref,
 if ("${github_ref}" -eq "refs/tags/") {
 	$REF = "${github_ref}"
 	$TAG = ${$REF/refs\/tags\/$strip_tag_prefix/}
-	Write-Output "::set-env name=tag::$TAG"
-	Write-Output "::set-env name=is_tag::true"
+
+	#are disabled for sec reasons
+	#Write-Output "::set-env name=tag::$TAG"
+	#Write-Output "::set-env name=is_tag::true"
+
+	echo "::set-output name=tag::$TAG"
+	echo "::set-output name=is_tag::true"
 }
 else {
 	Write-Output "::set-env name=is_tag::false"

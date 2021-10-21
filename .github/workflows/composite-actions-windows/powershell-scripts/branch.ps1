@@ -11,10 +11,17 @@ if ($github_ref -ne "refs/tags/") {
 	$REF = "${github_ref}"
 	$BASE_REF = ${BASE_REF/refs\/heads\//}
 	$HEAD_REF = ${HEAD_REF/refs\/heads\//}
-	Write-Output "::set-env name=base_ref_branch::"${BASE_REF}""
-	Write-Output "::set-env name=head_ref_branch::"${HEAD_REF}""
+	
+	echo "::set-output name=base_ref_branch::"${BASE_REF"}""
+	echo "::set-output name=head_ref_branch::"${HEAD_REF"}""
+
+	#Write-Output "::set-env name=base_ref_branch::"${BASE_REF}""
+	#Write-Output "::set-env name=head_ref_branch::"${HEAD_REF}""
             
 	$REF_BRANCH = ${REF/refs\/pull\//}
 	$REF_BRANCH = ${REF_BRANCH/refs\/heads\//}
-	Write-Output "::set-env name=ref_branch::"${REF_BRANCH}""
+
+	echo "::set-output name=ref_branch::"${REF_BRANCH"}""
+
+	#Write-Output "::set-env name=ref_branch::"${REF_BRANCH}""
 }

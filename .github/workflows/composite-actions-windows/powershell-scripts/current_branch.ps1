@@ -11,14 +11,17 @@ param ($github_ref,
 
 if ( "${github_ref}" -ne "refs/tags/") {
 	if ($github_event_name -eq 'pull_request' ) {
-		Write-Output "::set-env name=current_branch::$head_ref_branch"
+		echo "::set-output name=current_branch::$head_ref_branch"
+		#Write-Output "::set-env name=current_branch::$head_ref_branch"
 	}
  else {
-		Write-Output "::set-env name=current_branch::$ref_branch"
+		echo "::set-output name=current_branch::$ref_branch"
+		#Write-Output "::set-env name=current_branch::$ref_branch"
 	}
 }
 else {
 	$REF = "${github.ref }"
 	$REF_BRANCH = ${$REF/refs\/tags\/$strip_tag_prefix/}
-	Write-Output "::set-env name=current_branch::"${REF_BRANCH"}""
+	echo "::set-output name=current_branch::"${REF_BRANCH"}""
+	#Write-Output "::set-env name=current_branch::"${REF_BRANCH"}""
 }
