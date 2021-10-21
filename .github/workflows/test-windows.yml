@@ -1,0 +1,26 @@
+name: test get branch names on windows machine
+
+on:
+  pull_request: { branches: master }
+  push: { branches: master }
+  
+jobs:
+  test-windows:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get branch name
+        id: branch-name
+        uses: ./.github/workflows/composite-actions-windows
+
+      - name: Running on the default branch.
+        if: steps.branch-name.outputs.is_default == 'true'
+        run: |
+          echo "Running on default: ${{ steps.branch-name.outputs.current_branch}}"
+      - name: Running on a pull request
+        if: steps.branch-name.outputs.is_default == 'false'
+        run: |
+          echo "Running on pr: ${{ steps.branch-name.outputs.current_branch}}"
