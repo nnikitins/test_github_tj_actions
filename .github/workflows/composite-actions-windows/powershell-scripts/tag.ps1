@@ -1,5 +1,5 @@
 param($github_ref, 
-	[Parameter(Mandatory = $false)]
+	[Switch]
 	$strip_tag_prefix
 )
 

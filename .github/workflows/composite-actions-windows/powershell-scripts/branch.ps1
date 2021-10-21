@@ -1,7 +1,7 @@
 param ($github_ref, 
-	[Parameter(Mandatory = $false)]
+	[Switch]
 	$github_base_ref, 
-	[Parameter(Mandatory = $false)]
+	[Switch]
 	$github_head_ref
 )
 
