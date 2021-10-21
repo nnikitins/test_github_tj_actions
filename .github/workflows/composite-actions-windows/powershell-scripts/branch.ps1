@@ -1,4 +1,9 @@
-param ($github_ref, $github_base_ref = "", $github_head_ref = "")
+param ($github_ref, 
+	[Parameter(Mandatory = $false)]
+	$github_base_ref, 
+	[Parameter(Mandatory = $false)]
+	$github_head_ref
+)
 
 if ($github_ref -ne "refs/tags/") {
 	$BASE_REF = "${github_base_ref }"

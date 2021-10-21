@@ -1,4 +1,13 @@
-param ($github_ref, $github_event_name = "" , $head_ref_branch = "" , $ref_branch = "", $strip_tag_prefix = "")
+param ($github_ref, 
+	[Parameter(Mandatory = $false)]
+	$github_event_name, 
+	[Parameter(Mandatory = $false)]
+	$head_ref_branch,
+	[Parameter(Mandatory = $false)]
+	$ref_branch, 
+	[Parameter(Mandatory = $false)]
+	$strip_tag_prefix
+)
 
 if ( "${github_ref}" -ne "refs/tags/") {
 	if ($github_event_name -eq 'pull_request' ) {

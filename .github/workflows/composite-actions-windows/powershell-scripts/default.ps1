@@ -1,4 +1,9 @@
-param($github_ref, $current_branch = "", $ref_branch = "")
+param($github_ref, 
+	[Parameter(Mandatory = $false)]
+	$current_branch, 
+	[Parameter(Mandatory = $false)]
+	$ref_branch
+)
 
 if ("${github_ref}" -ne "refs/tags/") {
 	if ("${current_branch}" -eq "${ref_branch}" ) {

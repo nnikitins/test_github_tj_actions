@@ -1,4 +1,7 @@
-param($github_ref, $strip_tag_prefix = "")
+param($github_ref, 
+	[Parameter(Mandatory = $false)]
+	$strip_tag_prefix
+)
 
 if ("${github_ref}" -eq "refs/tags/") {
 	$REF = "${github_ref}"
