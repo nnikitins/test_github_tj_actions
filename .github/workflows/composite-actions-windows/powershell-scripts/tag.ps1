@@ -15,5 +15,6 @@ if ("${github_ref}" -eq "refs/tags/") {
 	echo "::set-output name=is_tag::true"
 }
 else {
-	Write-Output "::set-env name=is_tag::false"
+	echo "::set-output name=is_tag::false"
+	#Write-Output "::set-env name=is_tag::false"
 }
