@@ -34,17 +34,17 @@ runs:
   using: "composite"
   steps:
     - id: branch
-      run: .\github\workflows\composite-actions-windows\branch.ps1 -github_ref ${{ github.ref}} -github_base_ref ${{ github.base_ref}} -github_head_ref ${{ github.head_ref }}
+      run: .\github\workflows\composite-actions-windows\powershell-scripts\branch.ps1 -github_ref ${{ github.ref}} -github_base_ref ${{ github.base_ref}} -github_head_ref ${{ github.head_ref }}
       shell: powershell
       
     - id: current_branch
-      run: .\github\workflows\composite-actions-windows\current_branch.ps1 -github_ref ${{ github.ref}} -github_event_name ${{ github.event_name }} -head_ref_branch ${{ steps.branch.outputs.head_ref_branch }} -ref_branch ${{ steps.branch.outputs.ref_branch }} -strip_tag_prefix ${{ inputs.strip_tag_prefix }}
+      run: .\github\workflows\composite-actions-windows\powershell-scripts\current_branch.ps1 -github_ref ${{ github.ref}} -github_event_name ${{ github.event_name }} -head_ref_branch ${{ steps.branch.outputs.head_ref_branch }} -ref_branch ${{ steps.branch.outputs.ref_branch }} -strip_tag_prefix ${{ inputs.strip_tag_prefix }}
       shell: powershell
       
     - id: default
-      run: .\github\workflows\composite-actions-windows\default.ps1 -github_ref ${{ github.ref}} -current_branch ${{ steps.current_branch.outputs.current_branch }} -ref_branch ${{ steps.branch.outputs.ref_branch }}
+      run: .\github\workflows\composite-actions-windows\powershell-scripts\default.ps1 -github_ref ${{ github.ref}} -current_branch ${{ steps.current_branch.outputs.current_branch }} -ref_branch ${{ steps.branch.outputs.ref_branch }}
       shell: powershell
       
     - id: tag
-      run: .\github\workflows\composite-actions-windows\tag.ps1 -github_ref ${{ github.ref}} -strip_tag_prefix ${{ inputs.strip_tag_prefix }}
+      run: .\github\workflows\composite-actions-windows\powershell-scripts\tag.ps1 -github_ref ${{ github.ref}} -strip_tag_prefix ${{ inputs.strip_tag_prefix }}
       shell: powershell
