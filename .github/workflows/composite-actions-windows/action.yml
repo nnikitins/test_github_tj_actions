@@ -36,6 +36,7 @@ runs:
     - id: set github_base_ref
       if: ${{github.base_ref == ''}}
       run: echo "is null"
+      shell: pwsh
       
     - id: branch
       run: .\.github\workflows\composite-actions-windows\powershell-scripts\branch.ps1 -github_ref ${{ github.ref}} -github_base_ref ${{ github.base_ref}} -github_head_ref ${{ github.head_ref }}
