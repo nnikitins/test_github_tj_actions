@@ -37,9 +37,9 @@ runs:
     - shell: pwsh
       run: |
         echo ${{github.ref}}
-        if (!${{github.base_ref}}) { Write-Host "variable is null" }
-        if (!${{github.head_ref}}) { Write-Host "variable is null" }
-        if (!${{github.event_name}}) { Write-Host "variable is null" }
+        if (${{github.base_ref}} -eq '') { Write-Host "variable is null" }
+        if (${{github.head_ref}} -eq '') { Write-Host "variable is null" }
+        if (${{github.event_name}} -eq '') { Write-Host "variable is null" }
       
     - id: branch
       run: .\.github\workflows\composite-actions-windows\powershell-scripts\branch.ps1 -github_ref ${{ github.ref}} -github_base_ref ${{ github.base_ref}} -github_head_ref ${{ github.head_ref }}
