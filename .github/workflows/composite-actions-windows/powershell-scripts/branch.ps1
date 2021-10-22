@@ -1,11 +1,9 @@
 param ($github_ref, 
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$github_base_ref, 
+	[AllowEmptyString()]
+	[string] $github_base_ref, 
 
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$github_head_ref
+	[AllowEmptyString()]
+	[string] $github_head_ref
 )
 
 if ($github_ref -ne "refs/tags/") {
