@@ -1,8 +1,6 @@
 param($github_ref, 
-	
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$strip_tag_prefix
+	[AllowEmptyString()]
+	[string] $strip_tag_prefix
 )
 
 if ("${github_ref}" -eq "refs/tags/") {
