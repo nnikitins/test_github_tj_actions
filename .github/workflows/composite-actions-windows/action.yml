@@ -36,7 +36,6 @@ runs:
   
     - shell: pwsh
       run: |
-      if ()
         echo ${{github.ref}}
         if (!${{github.base_ref}}) { Write-Host "variable is null" }
         if (!${{github.head_ref}}) { Write-Host "variable is null" }
