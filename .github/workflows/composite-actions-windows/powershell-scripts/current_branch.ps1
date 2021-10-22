@@ -1,19 +1,15 @@
 param ($github_ref, 
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$github_event_name, 
+	[AllowEmptyString()]
+	[string] $github_event_name, 
 
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$head_ref_branch,
+	[AllowEmptyString()]
+	[string] $head_ref_branch,
 
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$ref_branch, 
+	[AllowEmptyString()]
+	[string] $ref_branch, 
 	
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$strip_tag_prefix
+	[AllowEmptyString()]
+	[string] $strip_tag_prefix
 )
 
 if ( "${github_ref}" -ne "refs/tags/") {
