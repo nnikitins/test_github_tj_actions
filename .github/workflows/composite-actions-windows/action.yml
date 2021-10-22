@@ -34,7 +34,7 @@ runs:
   using: "composite"
   steps:
     - id: set github_base_ref
-      if: ${{github_base_ref == ''}}
+      if: ${{github.base_ref == ''}}
       run: echo "is null"
       
     - id: branch
