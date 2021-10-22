@@ -34,8 +34,7 @@ runs:
   using: "composite"
   steps:
   
-    - run: echo "is null"
-      shell: pwsh
+    - shell: pwsh
       run: |
         if (${{github.base_ref -eq ''}}) { echo "asdsad" }
       
