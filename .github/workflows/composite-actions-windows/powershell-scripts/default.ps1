@@ -1,12 +1,10 @@
 param($github_ref, 
 	
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$current_branch, 
+	[AllowEmptyString()]
+	[string] $current_branch, 
 	
-	[Parameter(Mandatory=$false)]
-  	[Switch]
-	$ref_branch
+	[AllowEmptyString()]
+	[string] $ref_branch
 )
 
 if ("${github_ref}" -ne "refs/tags/") {
