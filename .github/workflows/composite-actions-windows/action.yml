@@ -37,9 +37,9 @@ runs:
     - shell: pwsh
       run: |
         echo ${{github.ref}}
-        $base_ref = ${{github.base_ref}}
-        $head_red = ${{github.head_ref}}
-        $event_name = ${{github.event_name}}
+        $base_ref = "${${{github.base_ref}}}"
+        $head_red = "${${{github.head_ref}}}"
+        $event_name = "${${{github.event_name}}}"
         
         if ($base_ref -eq '') { Write-Host "variable is null" }
         if ($head_red -eq '') { Write-Host "variable is null" }
