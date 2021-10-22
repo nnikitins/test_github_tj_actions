@@ -36,7 +36,7 @@ runs:
   
     - shell: pwsh
       run: |
-        if (${{github.base_ref -eq ''}}) { echo "asdsad" }
+        echo ${{github.base_ref}}
       
     - id: branch
       run: .\.github\workflows\composite-actions-windows\powershell-scripts\branch.ps1 -github_ref ${{ github.ref}} -github_base_ref ${{ github.base_ref}} -github_head_ref ${{ github.head_ref }}
